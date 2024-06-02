@@ -1,6 +1,8 @@
 package com.mgmetehan.validationexceptionhandler.controller;
 
 import com.mgmetehan.validationexceptionhandler.dto.UserRequestDTO;
+import com.mgmetehan.validationexceptionhandler.exception.ErrorStatusCode;
+import com.mgmetehan.validationexceptionhandler.exception.GeneralException;
 import com.mgmetehan.validationexceptionhandler.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,5 +21,10 @@ public class UserController {
     @PostMapping
     public String createUser(@RequestBody @Valid UserRequestDTO user) {
         return userService.createUser(user);
+    }
+
+    @PostMapping("/exception")
+    public String createUserException(@RequestBody UserRequestDTO user) {
+        throw new GeneralException(ErrorStatusCode.NAME_WRONG_FORMAT);
     }
 }
